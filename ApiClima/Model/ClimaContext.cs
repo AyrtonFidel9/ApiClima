@@ -46,9 +46,11 @@ namespace ApiClima.Model
                     .HasColumnName("ciudad");
 
                 entity.Property(e => e.Descripcion)
-                    .HasMaxLength(500)
+                    .IsRequired()
+                    .HasMaxLength(6)
                     .IsUnicode(false)
-                    .HasColumnName("descripcion");
+                    .HasColumnName("descripcion")
+                    .HasComputedColumnSql("(case when [Temperatura]>(20) then 'Calido' else 'Frio' end)", false);
 
                 entity.Property(e => e.Humedad).HasColumnName("humedad");
 
@@ -59,7 +61,11 @@ namespace ApiClima.Model
 
                 entity.Property(e => e.ProbPrecipitaciones).HasColumnName("probPrecipitaciones");
 
-                entity.Property(e => e.Sensacion).HasColumnName("sensacion");
+                entity.Property(e => e.Sensacion)
+                    .HasColumnName("sensacion")
+                    .HasComputedColumnSql("((((13.12)+(0.6215)*[Temperatura])-(11.37)*power([VIENTO],(0.16)))+((0.3965)*[Temperatura])*power([VIENTO],(0.16)))", false);
+
+                entity.Property(e => e.Temperatura).HasColumnName("temperatura");
 
                 entity.Property(e => e.Viento).HasColumnName("viento");
             });

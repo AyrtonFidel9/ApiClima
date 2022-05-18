@@ -13,7 +13,8 @@ namespace ApiClima.Model
         public double? ProbPrecipitaciones { get; set; }
         public double? Humedad { get; set; }
         public double? Viento { get; set; }
-        public int? Sensacion { get; set; }
+        public double? Temperatura { get; set; }
+        public double? Sensacion { get; set; }
         public string Descripcion { get; set; }
     }
 }
